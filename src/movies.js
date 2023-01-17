@@ -17,21 +17,74 @@ function howManyMovies(array) {
 
 // Iteration 3: All scores average - Get the average of all scores with 2 decimals
 function scoresAverage(array) {
-    return array.map((movie) => {
-      return movie.score
-    }).reduce((acc, value) => {
-      return acc + value
-    })/array.length
+  if (array.length === 0) {
+    return 0;
   }
+  
+  return +(array.map((movie) => {
+    return movie.score
+  }).reduce((acc, value) => {
+      if (!value) {
+          return acc + 0
+      } else {
+
+          return acc + value
+      }
+  })/array.length).toFixed(2)
+}
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
-function dramaMoviesScore(moviesArray) {}
+function dramaMoviesScore(array) {
+  let newArray = array.filter((element) => {
+    return element.genre.includes("Drama");
+  })
+
+  if (newArray.length === 0) {
+      return 0;
+    }
+
+    let newLength = newArray.length;
+    
+    return +(newArray.map((movie) => {
+      return movie.score
+    }).reduce((acc, value) => {
+        if (!value) {
+            return acc + 0
+        } else {
+
+            return acc + value
+        }
+    })/newLength).toFixed(2)
+}
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear(moviesArray) {}
+function orderByYear(array) {
+  let newArr = array.map((element) => {
+    return element;
+  });
+
+  return newArr.sort((a,b) => {
+    if (a.year === b.year) {
+      return a.title.localeCompare(b.title);
+    }
+    else {
+      return a.year - b.year;
+    }
+  });
+}
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically(moviesArray) {}
+function orderAlphabetically(array) {
+  let titles = array.map((element)=>{
+    return element.title;
+  });
+
+
+  
+  return titles.sort((a,b) => {
+    return a.localeCompare(b);
+  }).slice(0,20);
+}
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {}
